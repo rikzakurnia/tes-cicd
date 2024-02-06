@@ -95,7 +95,12 @@ jobs:
         uses: webfactory/ssh-agent@v0.5.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-  
+          
+      - name: Stop and remove existing container
+        run: |
+          docker stop $(docker ps -q)
+          docker rm $(docker ps -aq)
+          
       - name: Deploy with Docker on GCP VM
         run: |
           ssh -o StrictHostKeyChecking=no rikzakurnia1802@35.209.237.120 "docker pull rikku18/a3-ppl:latest && docker run -d -p 80:80 rikku18/a3-ppl:latest"
