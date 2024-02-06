@@ -82,3 +82,20 @@ jobs:
         context: .
         push: true
         tags: rikku18/a3-ppl:latest
+        
+  deploy:
+    runs-on: ubuntu-latest
+    needs: publish
+  
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+  
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.5.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+  
+      - name: Deploy with Docker on GCP VM
+        run: |
+          ssh -o StrictHostKeyChecking=no rikzakurnia1802@35.209.237.120 "docker pull rikku18/a3-ppl:latest && docker run -d -p 80:80 rikku18/a3-ppl:latest"
