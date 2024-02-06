@@ -19,7 +19,8 @@ jobs:
         php-version: '8.3'
 
     - name: Install dependencies
-      run: composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
+      run: |
+        composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
 
     - name: Copy environment file
       run: cp .env.example .env
@@ -41,18 +42,22 @@ jobs:
         php-version: '8.3'
 
     - name: Install dependencies
-      run: composer install --prefer-dist --no-ansi --no-interaction --no-progress
+      run: |
+        composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
+        composer require --dev phpunit/phpunit
+        composer require --dev roave/security-advisories:dev-latest
 
     - name: Copy environment file
       run: cp .env.example .env
 
+    - name: Generate application key
+      run: php artisan key:generate
+
     - name: Run tests with code coverage
-      run: phpunit --coverage-text --coverage-html=coverage
+      run: php vendor/bin/phpunit --coverage-text --coverage-html=coverage
 
     - name: Upload code coverage report
       uses: actions/upload-artifact@v2
       with:
         name: coverage
         path: coverage/
-
-  
