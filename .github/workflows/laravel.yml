@@ -96,11 +96,6 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
           
-      - name: Stop and remove existing container
-        run: |
-          docker ps -aq | xargs docker stop
-          docker ps -aq | xargs docker rm
-          
       - name: Deploy with Docker on GCP VM
         run: |
           ssh -o StrictHostKeyChecking=no rikzakurnia1802@35.209.237.120 "docker pull rikku18/a3-ppl:latest && docker run -d -p 80:80 rikku18/a3-ppl:latest"
