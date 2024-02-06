@@ -24,6 +24,10 @@ RUN composer require --dev roave/security-advisories:dev-latest || true
 # Copy the application files to the container
 COPY . .
 
+# Set up Apache to serve the Laravel application
+RUN a2enmod rewrite
+COPY apache-config.conf /etc/apache2/sites-available/000-default.conf
+
 # Set up Laravel
 RUN cp .env.example .env
 RUN php artisan key:generate
