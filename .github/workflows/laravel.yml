@@ -98,11 +98,9 @@ jobs:
 
       - name: Stop and Remove Docker Containers
         run: |
-          for container_id in $(docker ps -aq); do
-            docker stop $container_id
-            docker rm $container_id
-          done
+          docker stop a3_ppl
+          docker rm a3_ppl
           
       - name: Deploy with Docker on GCP VM
         run: |
-          ssh -o StrictHostKeyChecking=no rikzakurnia1802@35.209.237.120 "docker pull rikku18/a3-ppl:latest && docker run -d -p 80:80 rikku18/a3-ppl:latest"
+          ssh -o StrictHostKeyChecking=no rikzakurnia1802@35.209.237.120 "docker pull rikku18/a3-ppl:latest && docker run --name a3_ppl -d -p 80:80 rikku18/a3-ppl:latest"
