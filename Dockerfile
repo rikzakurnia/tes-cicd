@@ -17,7 +17,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 # Copy the composer files and install dependencies
 COPY composer.json composer.lock ./
-RUN composer install --prefer-dist --no-scripts --no-dev --no-autoloader && rm -rf /root/.composer
+RUN composer install --prefer-dist --no-scripts --no-dev --no-autoloader
 RUN composer require --dev phpunit/phpunit
 RUN composer require --dev roave/security-advisories:dev-latest
 
