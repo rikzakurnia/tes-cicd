@@ -29,13 +29,6 @@
         <env name="SESSION_DRIVER" value="array"/>
         <env name="TELESCOPE_ENABLED" value="false"/>
     </php>
-    <filter>
-        <whitelist>
-            <directory>./app</directory>
-            <directory>./tests</directory>
-        </whitelist>
-    </filter>
-
     <logging>
         <log type="coverage-html" target="coverage/" title="Code Coverage"/>
     </logging>
