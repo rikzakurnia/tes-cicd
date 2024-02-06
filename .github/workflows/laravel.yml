@@ -98,8 +98,12 @@ jobs:
 
       - name: Stop and Remove Docker Containers
         run: |
-          docker stop a3_ppl
-          docker rm a3_ppl
+          if docker ps -a --format '{{.Names}}' | grep -q '^a3_ppl$'; then
+            docker stop a3_ppl
+            docker rm a3_ppl
+          else
+            echo "Container 'a3_ppl' does not exist."
+          fi
           
       - name: Deploy with Docker on GCP VM
         run: |
