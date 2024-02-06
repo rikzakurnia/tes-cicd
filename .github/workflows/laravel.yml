@@ -98,8 +98,8 @@ jobs:
           
       - name: Stop and remove existing container
         run: |
-          docker stop $(docker ps -q)
-          docker rm $(docker ps -aq)
+          docker stop $(docker ps -a -q)
+          docker rm $(docker ps -a -q)
           
       - name: Deploy with Docker on GCP VM
         run: |
